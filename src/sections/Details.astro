@@ -1,0 +1,161 @@
+---
+import Dialog from "@/components/Dialog.astro";
+import BowtieIcon from "@/assets/icons/BowtieIcon.astro";
+import GiftIcon from "@/assets/icons/GiftIcon.astro";
+import NoteIcon from "@/assets/icons/NoteIcon.astro";
+---
+
+<section
+   class="lg:max-w-[1200px] mx-auto px-3 py-14 grid grid-cols-1 md:grid-cols-3 gap-2"
+>
+   <div
+      class="w-full bg-secondary rounded-md text-accent py-5 md:px-5 flex flex-col justify-between items-center gap-8"
+   >
+      <div class="w-full flex justify-center">
+         <GiftIcon className="w-20 h-20 text-accent-dark " />
+      </div>
+      <div class="text-center">
+         <h3 class="text-2xl">Regalos</h3>
+         <p class="text-primary text-balance mt-5">
+            ¡El mejor regalo es tu presencia! Si deseas realizarnos un regalo...
+         </p>
+      </div>
+
+      <Dialog title="Regalos">
+         <button
+            slot="trigger"
+            class="w-[230px] px-4 py-2 rounded-md bg-accent text-secondary"
+            >Ver más</button
+         >
+
+         <!-- content -->
+         <div class="space-y-3 max-w-[400px]">
+            <!-- Bank Account Option -->
+            <div class="bg-blue-100/30 p-4 rounded-lg">
+               <h3 class="text-xl font-semibold text-blue-600 mb-2">
+                  Cuenta de Banco
+               </h3>
+               <div class="text-gray-700">
+                  <h4 class="font-bold">Banco X</h4>
+                  <span class="block">Tipo: Cuenta de ahorro </span>
+                  <span class="block">Número: xxxxxxxxxxxxx</span>
+                  <span class="block"> Titular: MARIA GONZALEZ </span>
+               </div>
+            </div>
+            <!-- PayPal Option -->
+            <div class="bg-yellow-100/30 p-4 rounded-lg">
+               <h3 class="text-xl font-semibold text-yellow-600 mb-2">
+                  PayPal
+               </h3>
+               <p class="text-gray-700">Cuenta: maria@example.com</p>
+            </div>
+            <!-- Cash Option -->
+            <div class="bg-green-100/30 p-4 rounded-lg">
+               <h3 class="text-xl font-semibold text-green-600 mb-2">
+                  Efectivo
+               </h3>
+               <p class="text-gray-700">
+                  En el evento estarán ubicados sobres, cualquier duda
+                  comunicarse con los novios.
+               </p>
+            </div>
+         </div>
+      </Dialog>
+   </div>
+
+   <div
+      class="w-full bg-secondary rounded-md text-accent py-5 md:px-5 flex flex-col justify-between items-center gap-8"
+   >
+      <div class="w-full flex justify-center">
+         <BowtieIcon className="w-20 h-20 text-accent-dark " />
+      </div>
+      <div class="text-center">
+         <h3 class="text-2xl">Dress Code</h3>
+         <p class="text-primary mt-5">
+            El código de vestimenta es cóctel con tonos pasteles.
+         </p>
+      </div>
+
+      <Dialog title="Dress Code">
+         <!-- trigger -->
+         <button
+            slot="trigger"
+            class="w-[230px] px-4 py-2 rounded-md bg-accent text-secondary"
+            >Ver más</button
+         >
+         <!-- content -->
+         <div>
+            <h4 class="text-secondary font-serif text-xl">Ejemplos:</h4>
+            <div class="flex flex-col items-center">
+               <img
+                  class="w-[600px]"
+                  alt="Opción vestimenta 1"
+                  loading="lazy"
+                  src="https://images.ecestaticos.com/5uJe6DWZ-LD1xiSU30oPmiF8WIQ=/0x145:1986x1465/1440x810/filters:fill(white):format(jpg)/f.elconfidencial.com%2Foriginal%2F753%2F416%2F785%2F75341678542f83d3b13db1bdf4a47a57.jpg"
+               />
+               <img
+                  class="w-[600px]"
+                  alt="Opción vestimenta 2"
+                  loading="lazy"
+                  src="https://images.vstatics.com//business/aa/bd/b9/big_0image0.jpg"
+               />
+               <img
+                  class="w-[400px]"
+                  alt="Opción vestimenta 3"
+                  loading="lazy"
+                  src="https://i.pinimg.com/originals/58/98/fb/5898fb758a51634ff6338888f2a50ca9.jpg"
+               />
+               <img
+                  class="w-[400px]"
+                  alt="Opción vestimenta 4"
+                  loading="lazy"
+                  src="https://i.pinimg.com/236x/e6/52/57/e652575fc77d76386536cd8ac0c24969.jpg"
+               />
+            </div>
+         </div>
+      </Dialog>
+   </div>
+
+   <div
+      class="w-full bg-secondary rounded-md text-accent py-5 md:px-5 flex flex-col justify-between items-center gap-8"
+   >
+      <div class="w-full flex justify-center">
+         <NoteIcon className="w-20 h-20 text-accent-dark " />
+      </div>
+      <div class="text-center">
+         <h3 class="text-2xl">Tips y Notas</h3>
+
+         <p class="text-primary mt-5">
+            Información adicional para tener en cuenta
+         </p>
+      </div>
+
+      <Dialog title="Tips y Notas">
+         <!-- trigger -->
+
+         <button
+            slot="trigger"
+            class="w-[230px] px-4 py-2 rounded-md bg-accent text-secondary"
+            >+ Info</button
+         >
+
+         <!-- content -->
+
+         <ul class="list-disc space-y-3">
+            <li>
+               Para poder disfrutar al máximo, la celebración será <strong
+                  >solo para adultos.</strong
+               >
+            </li>
+            <li>
+               Nos encantaría contar con tu presencia. Esta invitación es
+               <strong>válida para una persona.</strong>
+            </li>
+            <li>
+               Para disfrutar juntos de cada momento de nuestra boda, les
+               agradecemos que lleguen a tiempo.
+            </li>
+         </ul>
+      </Dialog>
+   </div>
+</section>

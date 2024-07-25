@@ -1,0 +1,134 @@
+---
+import { ViewTransitions } from "astro:transitions";
+
+type Props = {
+   title: string;
+   description?: string;
+};
+
+const { title, description } = Astro.props;
+
+const PORTRAIT_URL =
+   "https://images.unsplash.com/photo-1606216794074-735e91aa2c92?w=400&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8d2VkZGluZ3xlbnwwfHwwfHx8MA%3D%3D";
+---
+
+<html lang="en">
+   <head>
+      <meta charset="utf-8" />
+      <meta name="viewport" content="width=device-width" />
+      <link rel="icon" type="image/svg+xml" href="/rings.svg" />
+      <meta name="generator" content={Astro.generator} />
+      <!-- Primary Meta Tags -->
+      <title>{title}</title>
+      <meta name="description" content={description} />
+
+      <!-- Open Graph / Facebook -->
+      <meta property="og:type" content="website" />
+      <meta property="og:url" content="https://our-event.jfaquino.dev/" />
+      <meta property="og:title" content={title} />
+      <meta property="og:description" content={description} />
+      <meta property="og:image" content={PORTRAIT_URL} />
+
+      <!-- Twitter -->
+      <meta property="twitter:card" content="summary_large_image" />
+      <meta property="twitter:url" content="https://our-event.jfaquino.dev/" />
+      <meta property="twitter:title" content={title} />
+      <meta property="twitter:description" content={description} />
+      <meta property="twitter:image" content={PORTRAIT_URL} />
+
+      <link
+         rel="preload"
+         fetchpriority="high"
+         as="image"
+         href={PORTRAIT_URL}
+         type="image/webp"
+      />
+
+      <ViewTransitions />
+   </head>
+   <body>
+      <slot />
+
+      <style is:global>
+         :root {
+            --color-primary: #cecece;
+            --color-secondary: #24342c;
+            --color-accent: #a87332;
+            --color-accent-dark: #73592f;
+            --color-accent-rgb: 220, 187, 87;
+
+            --background-color: #254636;
+         }
+
+         @font-face {
+            font-family: "GreatVibes";
+            src: url("/fonts/GreatVibes-Regular.woff2") format("woff2");
+            font-weight: normal;
+            font-style: normal;
+            font-display: swap;
+         }
+         @font-face {
+            font-family: "suranna";
+            src: url("/fonts/Suranna-Regular.woff2") format("woff2");
+            font-weight: normal;
+            font-style: normal;
+            font-display: swap;
+         }
+
+         html {
+            font-family: "helvetica", system-ui, sans-serif;
+            background: var(--background-color);
+            scrollbar-gutter: stable;
+         }
+
+         body {
+            color: var(--color-primary);
+            margin-left: auto;
+            margin-right: auto;
+            max-width: 1200px;
+         }
+
+         .ripped {
+            margin-top: -100px;
+            padding-top: 100px;
+            mask:
+               url("/ripped-paper.webp") top/100% 141px repeat-x,
+               linear-gradient(white, white) no-repeat bottom/100%
+                  calc(100% - 140px);
+         }
+
+         @supports selector(::-webkit-scrollbar) {
+            ::-webkit-scrollbar {
+               width: 10px;
+               border-radius: 10px;
+            }
+
+            ::-webkit-scrollbar-thumb {
+               border-radius: 10px;
+               background-color: theme("colors.primary");
+               border: 2px solid transparent;
+               background-clip: content-box;
+            }
+
+            ::-webkit-scrollbar-thumb:active {
+               background-color: #666;
+            }
+
+            ::-webkit-scrollbar-track {
+               background: var(--background-image);
+            }
+
+            ::-webkit-scrollbar-corner {
+               background: var(--background-image);
+            }
+         }
+
+         @supports not selector(::-webkit-scrollbar) {
+            * {
+               scrollbar-color: theme("colors.primary") transparent;
+               scrollbar-width: thin;
+            }
+         }
+      </style>
+   </body>
+</html>

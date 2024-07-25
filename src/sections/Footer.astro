@@ -1,0 +1,25 @@
+---
+import { BRIDE_NAME, GROOM_NAME } from "@/consts/constant";
+---
+
+<footer class="bg-secondary text-primary py-12 md:py-16 lg:py-20">
+   <div class="container mx-auto px-4 md:px-6 lg:px-8">
+      <div class="grid grid-cols-1 gap-8 md:gap-12">
+         <div
+            class="relative flex flex-col items-center
+                     before:absolute before:content-['&'] before:text-[200px] before:opacity-5
+                     before:left-[50%] before:-translate-x-1/2 before:top-[50%] before:-translate-y-1/2 before:m-auto"
+         >
+            <div class="flex items-center font-numbers">
+               <span class="text-8xl">{BRIDE_NAME}</span>
+            </div>
+            <div class="flex items-center font-numbers">
+               <span class="text-8xl">{GROOM_NAME}</span>
+            </div>
+            <div class="text-center text-accent text-3xl mt-6 font-numbers">
+               <span>¡Te Esperamos!</span>
+            </div>
+         </div>
+      </div>
+   </div>
+</footer>

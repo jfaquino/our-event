@@ -1,0 +1,158 @@
+---
+import OrnamentDivider from "@/assets/icons/OrnamentDivider.astro";
+
+type Props = { title: string };
+
+const { title } = Astro.props;
+---
+
+<style>
+   /* Animation for modal */
+   @keyframes fadeIn {
+      from {
+         opacity: 0;
+         transform: scale(0.9) translate(0, 100px);
+      }
+      to {
+         opacity: 1;
+         transform: scale(1) translate(0, 0);
+      }
+   }
+
+   @keyframes backdrop {
+      from {
+         opacity: 0;
+      }
+      to {
+         opacity: 1;
+      }
+   }
+
+   @keyframes fadeOut {
+      from {
+         opacity: 1;
+         transform: scale(1);
+      }
+      to {
+         opacity: 0;
+         transform: scale(0.9);
+      }
+   }
+
+   /* Modal animations */
+   dialog {
+      animation: fadeIn 0.5s ease forwards;
+
+      &::backdrop {
+         animation: backdrop 0.3s ease forwards;
+      }
+   }
+
+   dialog.hide {
+      animation: fadeOut 0.3s ease-in-out;
+   }
+</style>
+
+<astro-dialog class="block">
+   <!-- Modal dialog -->
+   <dialog
+      class="bg-primary p-6 rounded-lg shadow-lg md:min-w-96 backdrop:backdrop-blur-sm overflow-hidden"
+   >
+      <header class="text-center text-2xl text-accent mb-4">
+         <button id="closeIcon" class="absolute p-1 top-0 right-0 text-accent"
+            ><svg
+               xmlns="http://www.w3.org/2000/svg"
+               width="24"
+               height="24"
+               viewBox="0 0 24 24"
+               fill="none"
+               stroke="currentColor"
+               stroke-width="2"
+               stroke-linecap="round"
+               stroke-linejoin="round"
+               ><path d="m15 9-6 6"></path><path d="m9 9 6 6"></path></svg
+            ></button
+         >
+
+         <h2>
+            {title}
+         </h2>
+
+         <div class="w-[180px] mx-auto py-2 text-accent">
+            <OrnamentDivider />
+         </div>
+      </header>
+
+      <div class="overflow-x-hidden overflow-y-scroll max-h-[500px]">
+         <slot>
+            <p class="text-gray-700 mb-4">Modal content goes here.</p>
+         </slot>
+      </div>
+   </dialog>
+
+   <!-- Button to open modal -->
+
+   <div id="trigger">
+      <slot name="trigger" />
+   </div>
+</astro-dialog>
+
+<script>
+   class AstroDialog extends HTMLElement {
+      constructor() {
+         super();
+
+         const $modal = this.querySelector("dialog") as HTMLDialogElement;
+         const $openBtn = this.querySelector("#trigger");
+         const $closeBtn = this.querySelector("#closeIcon");
+
+         // Open modal
+         $openBtn?.addEventListener("click", () => {
+            $modal.showModal();
+
+            document.body.classList.add("overflow-hidden");
+         });
+
+         // Close modal when close button is clicked
+         $closeBtn?.addEventListener("click", () => {
+            closeModal($modal);
+         });
+
+         // Close modal when clicking outside the modal content
+         $modal.addEventListener("click", (e) => {
+            const target = e.target as HTMLElement;
+            const rect = target.getBoundingClientRect();
+
+            const clickedInDialog =
+               rect.top <= e.clientY &&
+               e.clientY <= rect.top + rect.height &&
+               rect.left <= e.clientX &&
+               e.clientX <= rect.left + rect.width;
+
+            if (clickedInDialog === false) closeModal($modal);
+         });
+
+         function closeModal(modal: HTMLDialogElement) {
+            if (!modal) return;
+
+            modal.classList.add("hide");
+
+            const onAnimationEnd = () => {
+               modal.classList.remove("hide");
+               document.body.classList.remove("overflow-hidden");
+
+               modal.close();
+               modal.removeEventListener("animationend", onAnimationEnd);
+            };
+
+            modal.addEventListener("animationend", onAnimationEnd, false);
+         }
+
+         $modal.addEventListener("close", () =>
+            document.body.classList.remove("overflow-hidden")
+         );
+      }
+   }
+
+   customElements.define("astro-dialog", AstroDialog);
+</script>

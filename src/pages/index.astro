@@ -1,0 +1,33 @@
+---
+import { BRIDE_NAME, GROOM_NAME } from "@/consts/constant";
+import Layout from "@/layouts/Layout.astro";
+import ConfirmAttendance from "@/sections/ConfirmAttendance.astro";
+import Countdown from "@/sections/Countdown.astro";
+import Details from "@/sections/Details.astro";
+import Footer from "@/sections/Footer.astro";
+import Gallery from "@/sections/Gallery.astro";
+import Hero from "@/sections/Hero.astro";
+import Program from "@/sections/Program.astro";
+import SocialShare from "@/sections/SocialShare.astro";
+---
+
+<Layout
+   title=`${BRIDE_NAME} & ${GROOM_NAME} | Celebración Boda`
+   description=`Estás invitado a la boda de ${BRIDE_NAME} y ${GROOM_NAME}. Únete a nosotros para celebrar su historia de amor,y la alegría que los unirá en este día tan especial.`
+>
+   <Hero />
+
+   <Countdown />
+
+   <Program />
+
+   <ConfirmAttendance />
+
+   <Details />
+
+   <Gallery />
+
+   <SocialShare />
+
+   <Footer />
+</Layout>

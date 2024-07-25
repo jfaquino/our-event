@@ -1,0 +1,179 @@
+---
+import { BRIDE_NAME, GROOM_NAME } from "@/consts/constant";
+---
+
+<section class="mx-auto py-12 md:py-24 lg:py-32 px-4 md:px-6">
+   <div class="w-full relative overflow-hidden bg-gray-100 rounded-lg shadow">
+      <canvas class="absolute top-0 left-0 w-full h-full" id="confetti-canvas"
+      ></canvas>
+
+      <div
+         class="backdrop-blur-sm bg-white/5 py-12 px-4 md:px-6 flex gap-6 items-center justify-center"
+      >
+         <div class="space-y-4">
+            <h2
+               class="text-center text-3xl text-gray-500 font-bold tracking-tighter sm:text-4xl md:text-5xl"
+            >
+               ¡Comparte junto a nosotros!
+            </h2>
+            <p
+               class="max-w-[600px] text-center text-balance text-gray-500 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed dark:text-gray-400"
+            >
+               Nos encantaría ver nuestra boda desde tu perspectiva. 🎉❤️ Suban
+               sus fotos y videos con el hashtag <span
+                  id="hashtag"
+                  class="font-bold cursor-pointer text-transparent bg-clip-text bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500"
+                  >{`#${GROOM_NAME}Y${BRIDE_NAME}2024`}</span
+               > para que todos podamos revivir esos momentos inolvidables juntos.
+               📸🥂
+            </p>
+            <div class="flex justify-center gap-2 min-[400px]:flex-row">
+               <a
+                  href="https://www.instagram.com"
+                  target="_blank"
+                  class="inline-flex h-10 items-center justify-center rounded-md text-white font-bold px-8 text-sm
+                  bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 shadow transition-colors hover:from-pink-600 hover:via-red-600 hover:to-yellow-600 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-pink-500 disabled:pointer-events-none disabled:opacity-50"
+               >
+                  Compartir en Instagram
+               </a>
+            </div>
+         </div>
+      </div>
+   </div>
+</section>
+
+<!-- Notification container -->
+<div
+   id="notification"
+   class="z-20 hidden fixed px-4 py-3 bottom-8 md:px-6 md:py-3 md:bottom-4 left-1/2 transform -translate-x-1/2
+         bg-green-500 text-white rounded-lg shadow-lg"
+>
+   <div class="flex items-center space-x-2 text-nowrap text-sm">
+      <svg
+         class="w-5 h-5"
+         xmlns="http://www.w3.org/2000/svg"
+         fill="none"
+         viewBox="0 0 24 24"
+         stroke="currentColor"
+      >
+         <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M5 13l4 4L19 7"></path>
+      </svg>
+      <span>Copied to clipboard</span>
+   </div>
+</div>
+
+<script>
+   document.addEventListener("astro:page-load", () => {
+      // Copy to clipboard functionality
+      const hashtagElement = document.getElementById("hashtag");
+      const notificationElement = document.getElementById("notification");
+
+      if (hashtagElement == null || notificationElement == null) return;
+
+      hashtagElement.addEventListener("click", () => {
+         const textToCopy = hashtagElement.textContent;
+         if (textToCopy == null) return;
+
+         navigator.clipboard
+            .writeText(textToCopy)
+            .then(() => {
+               // Show the notification
+               notificationElement.classList.remove("hidden");
+               notificationElement.animate(
+                  { opacity: [0, 1] },
+                  { duration: 200, easing: "ease" }
+               );
+
+               setTimeout(() => {
+                  const animation = notificationElement.animate(
+                     { opacity: [1, 0] },
+                     { duration: 200 }
+                  );
+                  animation.onfinish = () => {
+                     notificationElement.classList.add("hidden");
+                  };
+               }, 2000);
+            })
+            .catch((err) => {
+               console.error("Failed to copy text: ", err);
+            });
+      });
+   });
+</script>
+
+<script>
+   import confetti from "canvas-confetti";
+
+   document.addEventListener("astro:page-load", () => {
+      const $canvas = document.getElementById(
+         "confetti-canvas"
+      ) as HTMLCanvasElement;
+
+      if ($canvas == null) return;
+
+      // Extend HTMLCanvasElement to include the confetti property
+      interface ConfettiCanvas extends HTMLCanvasElement {
+         confetti?:
+            | ((
+                 options?: confetti.Options | undefined
+              ) => Promise<undefined> | null)
+            | confetti.CreateTypes;
+      }
+
+      const confettiCanvas = $canvas as ConfettiCanvas;
+
+      // Initialize confetti once and save it to the canvas element
+      confettiCanvas.confetti =
+         confettiCanvas.confetti ||
+         confetti.create(confettiCanvas, {
+            resize: true,
+            useWorker: true,
+         });
+
+      function randomInRange(min: number, max: number) {
+         return Math.random() * (max - min) + min;
+      }
+
+      function startFallingParticles() {
+         confettiCanvas.confetti &&
+            confettiCanvas.confetti({
+               colors: ["#FFd700", "#254636", "#3023ae", "#ff0099"],
+
+               particleCount: 20,
+               startVelocity: randomInRange(10, 15),
+               ticks: 200,
+               spread: randomInRange(10, 360),
+               origin: {
+                  x: Math.random(), // Random x position to create a falling effect from different points
+                  y: 0, // Start from the top
+               },
+               gravity: randomInRange(0.4, 1),
+               scalar: randomInRange(0.4, 1),
+               drift: randomInRange(-0.4, 0.4),
+            });
+      }
+
+      let intervalId: number | null = null;
+
+      const observer = new IntersectionObserver((entries) => {
+         entries.forEach(handleIntersection);
+      });
+
+      function handleIntersection(entry: IntersectionObserverEntry) {
+         if (entry.isIntersecting && intervalId === null) {
+            intervalId = setInterval(startFallingParticles, 200);
+         } else {
+            if (intervalId !== null) {
+               clearInterval(intervalId);
+               intervalId = null;
+            }
+         }
+      }
+
+      observer.observe($canvas);
+   });
+</script>

@@ -1,0 +1,101 @@
+---
+import { BRIDE_NAME, DATE_SHORT, GROOM_NAME } from "@/consts/constant";
+---
+
+<style>
+   .boder-gradient {
+      border: 2px solid;
+      border-image-slice: 1;
+      border-width: 1px;
+      border-image-source: linear-gradient(
+         to right,
+         var(--color-primary),
+         var(--color-secondary),
+         var(--color-primary)
+      );
+   }
+
+   blockquote::before {
+      content: open-quote;
+      position: absolute;
+      top: -10px;
+      left: 40px;
+      font-size: 40px;
+   }
+   blockquote::after {
+      content: close-quote;
+      position: absolute;
+      bottom: -20px;
+      right: 40px;
+      font-size: 40px;
+   }
+</style>
+
+<section>
+   <div
+      class="relative overflow-hidden min-h-[500px] max-h-[800px] flex justify-center"
+   >
+      <img
+         id="parallax-image"
+         class="w-full h-auto object-cover object-bottom"
+         src="https://images.unsplash.com/photo-1606216794074-735e91aa2c92?q=80&w=1287&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+         alt="Parallax Image"
+      />
+   </div>
+
+   <div
+      class="w-full ripped bg-primary pb-[40px] px-4 flex justify-center text-secondary"
+   >
+      <div
+         class="w-full max-w-[500px] mt-[40px] py-7 px-3 flex flex-col items-center gap-10"
+      >
+         <div class="py-1 text-center">
+            <span class="text-secondary font-serif text-2xl tracking-wide"
+               >¡Nos Casamos!</span
+            >
+         </div>
+
+         <div
+            class="relative w-full max-w-[320px] px-3 space-y-10 text-secondary font-cursive text-7xl
+                     before:content-['&'] before:absolute before:w-[100px] before:top-[50%] before:-translate-y-2/4 before:left-[50%]
+                     before:-translate-x-2/4 before:text-center before:text-6xl before:opacity-30"
+         >
+            <h2 class="text-left">{BRIDE_NAME}</h2>
+            <h2 class="text-right">{GROOM_NAME}</h2>
+         </div>
+
+         <p class="text-center text-balance">
+            Estamos felices de invitarte a nuestro matrimonio
+         </p>
+
+         <div class="boder-gradient px-[30px] py-1 text-center">
+            <span class="text-secondary font-serif text-2xl tracking-wide"
+               >{DATE_SHORT}</span
+            >
+         </div>
+
+         <div class="relative px-[20px] text-center mt-4">
+            <blockquote
+               class="pt-4 font-['helvetica'] italic text-balance text-sm leading-tight"
+            >
+               Así que no son ya más dos. sino una sola carne; por lo tanto, lo
+               que Dios juntó, que no lo separe el hombre.
+            </blockquote>
+            <label>Mateo 19:6</label>
+         </div>
+      </div>
+   </div>
+</section>
+
+<script>
+   document.addEventListener("astro:page-load", () => {
+      window.addEventListener("scroll", function () {
+         const parallaxImage = document.getElementById("parallax-image");
+         if (parallaxImage == null) return;
+
+         const scrollPosition = window.scrollY;
+         parallaxImage.style.transform =
+            "translateY(" + scrollPosition * 0.4 + "px)";
+      });
+   });
+</script>

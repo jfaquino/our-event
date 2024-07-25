@@ -1,0 +1,56 @@
+---
+const BACKGROUND_URL =
+   "https://images.unsplash.com/photo-1520854221256-17451cc331bf?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D";
+---
+
+<section
+   class=`w-full relative bg-[url('${BACKGROUND_URL}')] bg-no-repeat bg-cover bg-right md:bg-bottom rounded-md`
+>
+   <div
+      class="w-full h-full py-12 md:py-24 lg:py-32
+               before:content-[''] before:w-full before:h-full before:absolute before:top-0 before:z-0 before:bg-green-950/55"
+   >
+      <div class="relative z-10 mx-auto max-w-md space-y-6 py-12">
+         <div class="space-y-2 text-center">
+            <h1 class="text-2xl text-white/70 md:text-3xl font-bold">
+               ¡Únete a Nuestra Celebración!
+            </h1>
+            <p
+               class="md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed text-white/70 text-balance"
+            >
+               Por favor, confirma tu asistencia para asegurarte un lugar. ¡Nos
+               vemos allí!
+            </p>
+         </div>
+         <div class="flex justify-center">
+            <a
+               href="#"
+               target="_blank"
+               class="text-white/70 flex items-center justify-center px-7 py-2.5 text-base font-bold
+                  border border-[#73592f] rounded-full drop-shadow-[0px_1px_2px_rgb(0,0,0,0.3)]
+                  bg-accent bg-gradient-to-tr from-[#73592f] to-accent
+                  ring-accent ring-offset-2 ring-offset-slate-700 active:ring-1
+                  hover:bg-none hover:bg-accent/70 hover:drop-shadow-lg"
+            >
+               <span>Confirmar Asistencia</span>
+               <svg
+                  stroke="currentColor"
+                  fill="currentColor"
+                  stroke-width="0"
+                  viewBox="0 0 16 16"
+                  class="ml-2"
+                  height="1em"
+                  width="1em"
+                  xmlns="http://www.w3.org/2000/svg"
+               >
+                  <path
+                     fill-rule="evenodd"
+                     d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"
+                  >
+                  </path>
+               </svg>
+            </a>
+         </div>
+      </div>
+   </div>
+</section>
