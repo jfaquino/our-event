@@ -1,13 +1,56 @@
-# Astro with Tailwind
+# Our Event
 
-```sh
-npm create astro@latest -- --template with-tailwindcss
+**Our Event** is a beautifully designed, exclusive digital invitation platform built using Astro and Tailwind CSS. It allows users to create and send personalized event invitations with a modern, elegant look.
+
+## Features
+
+- **Responsive Design**: Seamlessly adapts to different screen sizes.
+- **Customizable Templates**: Easily modify the design to match your event's theme.
+- **Tailwind CSS**: Provides a utility-first CSS framework for rapid UI development.
+
+## Getting Started
+
+### Prerequisites
+
+- Node.js
+- Yarn or npm
+
+### Installation
+
+1. Clone the repository:
+   ```bash
+     git clone https://github.com/jfaquino/our-event.git
+   ```
+2. Navigate to the project directory:
+   ```bash
+     cd our-event
+   ```
+3. Install dependencies:
+   ```bash
+     yarn install
+     # or
+     npm install
+   ```
+
+### Running the Project
+
+Start the development server:
+```bash
+  yarn dev
+  # or
+  npm run dev
 ```
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/withastro/astro/tree/latest/examples/with-tailwindcss)
-[![Open with CodeSandbox](https://assets.codesandbox.io/github/button-edit-lime.svg)](https://codesandbox.io/p/sandbox/github/withastro/astro/tree/latest/examples/with-tailwindcss)
-[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/withastro/astro?devcontainer_path=.devcontainer/with-tailwindcss/devcontainer.json)
+## Built With
 
-Astro comes with [Tailwind](https://tailwindcss.com) support out of the box. This example showcases how to style your Astro project with Tailwind.
+- **Astro**: A modern web framework for static site generation.
+- **Tailwind CSS**: A utility-first CSS framework.
+- **TypeScript**: Strongly typed programming language for better code quality.
 
-For complete setup instructions, please see our [Tailwind Integration Guide](https://docs.astro.build/en/guides/integrations-guide/tailwind).
+## Contributing
+
+Feel free to fork this repository and submit pull requests. Contributions are welcome!
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
