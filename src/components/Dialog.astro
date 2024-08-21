@@ -7,56 +7,43 @@ const { title } = Astro.props;
 ---
 
 <style>
-   /* Animation for modal */
-   @keyframes fadeIn {
-      from {
-         opacity: 0;
-         transform: scale(0.9) translate(0, 100px);
-      }
-      to {
-         opacity: 1;
-         transform: scale(1) translate(0, 0);
-      }
-   }
-
-   @keyframes backdrop {
-      from {
-         opacity: 0;
-      }
-      to {
-         opacity: 1;
-      }
-   }
-
-   @keyframes fadeOut {
-      from {
-         opacity: 1;
-         transform: scale(1);
-      }
-      to {
-         opacity: 0;
-         transform: scale(0.9);
-      }
-   }
-
    /* Modal animations */
    dialog {
-      animation: fadeIn 0.5s ease forwards;
+      position: fixed;
+      inset: 0;
+      opacity: 0;
+      scale: 0.9;
 
-      &::backdrop {
-         animation: backdrop 0.3s ease forwards;
+      transition:
+         opacity 0.2s ease,
+         scale 0.2s ease,
+         display 0.3s ease allow-discrete;
+
+      &[open] {
+         opacity: 1;
+         scale: 1;
+         transition:
+            scale 0.3s ease-in-out,
+            opacity 0.3s ease;
+
+         @starting-style {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin: auto;
+
+            scale: 0.9;
+            opacity: 0;
+         }
       }
-   }
-
-   dialog.hide {
-      animation: fadeOut 0.3s ease-in-out;
    }
 </style>
 
 <astro-dialog class="block">
    <!-- Modal dialog -->
    <dialog
-      class="bg-primary p-6 rounded-lg shadow-lg md:min-w-96 backdrop:backdrop-blur-sm overflow-hidden"
+      class="bg-primary p-6 rounded-lg shadow-lg md:min-w-96 backdrop:backdrop-blur-sm overflow-hidden z-10"
    >
       <header class="text-center text-2xl text-accent mb-4">
          <button id="closeIcon" class="absolute p-1 top-0 right-0 text-accent"
@@ -135,22 +122,9 @@ const { title } = Astro.props;
          function closeModal(modal: HTMLDialogElement) {
             if (!modal) return;
 
-            modal.classList.add("hide");
-
-            const onAnimationEnd = () => {
-               modal.classList.remove("hide");
-               document.body.classList.remove("overflow-hidden");
-
-               modal.close();
-               modal.removeEventListener("animationend", onAnimationEnd);
-            };
-
-            modal.addEventListener("animationend", onAnimationEnd, false);
+            modal.close();
+            document.body.classList.remove("overflow-hidden");
          }
-
-         $modal.addEventListener("close", () =>
-            document.body.classList.remove("overflow-hidden")
-         );
       }
    }
 
